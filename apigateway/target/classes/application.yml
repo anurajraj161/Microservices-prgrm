@@ -1,0 +1,22 @@
+server:
+  port: 8999
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/ 
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+      - id: Order
+        uri: http://localhost:9002/
+        predicates:
+        - Path=/order/**
+      - id: prayment_service
+        uri: http://localhost:9007/
+        predicates:
+        - Path=/payment/order/**
